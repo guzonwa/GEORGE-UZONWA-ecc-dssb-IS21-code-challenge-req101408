@@ -104,3 +104,40 @@ a:hover {
   outline: none;
   border-color: #61dafb;
 }
+
+.edit-button {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #1e87db;
+}
+
+.add-product-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  float: right;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 35px;
+  right: 20px;
+}
+
+.add-product-button i {
+  margin-right: 5px;
+}
+
+.add-product-button:hover {
+  background-color: #45a049;
+}

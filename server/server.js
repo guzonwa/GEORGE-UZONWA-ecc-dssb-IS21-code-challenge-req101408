@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 
+// health endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).send('Component is healthy');
+});
+
 // get all products
 app.get('/api/products', (req, res) => {
   fs.readFile('products.json', 'utf8', (err, data) => {

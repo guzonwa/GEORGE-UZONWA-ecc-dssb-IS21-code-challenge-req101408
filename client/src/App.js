@@ -1,9 +1,12 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
+import Modal from './Modal';
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [product, setProduct] = useState({});
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState({});
 
   useEffect(() => {
     fetchProducts();
@@ -20,27 +23,53 @@ function App() {
       });
   };
 
-  const fetchProduct = (productId) => {
-    fetch('/api/products/${productId}')
-      .then((response) => response.json())
-      .then((data) => {
-        setProduct(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching product:', error);
-      });
+  // const fetchProduct = (productId) => {
+  //   fetch('/api/products/${productId}')
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setProduct(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching product:', error);
+  //     });
+  // };
+
+  // const editProduct = (productId) => {
+  //   // Handle edit logic for the selected product
+  //   console.log(`Edit product with ID: ${productId}`);
+  // };
+
+  const addProduct = () => {
+    setIsEdit(false);
+    openDialog({});
   };
+
+  const openDialog = (product) => {
+    console.log('opening dialog');
+    setSelectedProduct(product);
+    setDialogOpen(true);
+  };
+  
+  const editProduct = (productId) => {
+    const selected = products.find((product) => product.productId === productId);
+    if (selected) {
+      setIsEdit(true);
+      openDialog(selected);
+    }
+  };
+  
+  const closeDialog = () => {
+    setSelectedProduct({});
+    setDialogOpen(false);
+  };
+  
 
   return (
     <div className="container">
-      <h1 className="title">Product List</h1>
-      <input
-        type="text"
-        placeholder="Filter by product id"
-        value={product.productId}
-        onChange={(e) => fetchProduct(e.target.value)}
-        className="filter-input"
-      />
+      <h1 className="title">Products List</h1>
+      <button className="add-product-button" onClick={addProduct}>
+        <i className="fas fa-plus"></i> Add Product
+      </button>
       <table className="table">
         <thead>
           <tr>
@@ -52,6 +81,7 @@ function App() {
             <th>Start Date</th>
             <th>Methodology</th>
             <th>Location</th>
+            <th>Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -69,10 +99,16 @@ function App() {
                   View on GitHub
                 </a>
               </td>
+              <td>
+                <button className="edit-button" onClick={() => editProduct(product.productId)}>
+                  Edit
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <Modal open={isDialogOpen} handleClose={closeDialog} product={selectedProduct} edit={isEdit} />
     </div>
   );
 }
