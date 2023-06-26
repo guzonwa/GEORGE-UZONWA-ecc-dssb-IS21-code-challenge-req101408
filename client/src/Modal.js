@@ -11,7 +11,6 @@ function Modal({ open, handleClose, product, edit }) {
   const [startDate, setStartDate] = useState(product.startDate);
   const [methodology, setMethodology] = useState(product.methodology);
   const [location, setLocation] = useState(product.location);
-  // const [isValid, setIsValid] = useState(false);
 
   const updatedProduct = { productId, productName, scrumMasterName, productOwnerName, developers, startDate, methodology, location };
 
@@ -24,28 +23,14 @@ function Modal({ open, handleClose, product, edit }) {
     setStartDate(product.startDate);
     setMethodology(product.methodology);
     setLocation(product.location);
-    // setIsValid(false);
   }, [product]);
 
-  // const handleProductIdChange = (e) => {
-  //   const value = e.target.value;
-  //   if (value.length <= 4) {
-  //     setProductId(value);
-  //     checkValidity();
-  //   }
-  // };
-
-  // const handleProductNameChange = (e) => {
-  //   const value = e.target.value;
-  //   setProductName(value);
-  //   checkValidity();
-  // };
-
-  // const checkValidity = () => {
-  //   setIsValid(productId != null && productName != null);
-  // };
-
   const onSave = () => {
+    if (!productId || !productName) {
+      console.error('Please enter a Product Id and Product Name.');
+      return;
+    }
+
     if (edit) {
       fetch(`/api/products/${productId}`, {
         method: 'PUT',
