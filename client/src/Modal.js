@@ -11,6 +11,7 @@ function Modal({ open, handleClose, product, edit }) {
   const [startDate, setStartDate] = useState(product.startDate);
   const [methodology, setMethodology] = useState(product.methodology);
   const [location, setLocation] = useState(product.location);
+  const [showError, setShowError] = useState(false);
 
   const updatedProduct = { productId, productName, scrumMasterName, productOwnerName, developers, startDate, methodology, location };
 
@@ -23,11 +24,12 @@ function Modal({ open, handleClose, product, edit }) {
     setStartDate(product.startDate);
     setMethodology(product.methodology);
     setLocation(product.location);
+    setShowError(false);
   }, [product]);
 
   const onSave = () => {
-    if (!productId || !productName) {
-      console.error('Please enter a Product Id and Product Name.');
+    if (!productId || !productName || !scrumMasterName || !productOwnerName || !developers || !startDate || !methodology || !location) {
+      setShowError(true);
       return;
     }
 
@@ -68,16 +70,16 @@ function Modal({ open, handleClose, product, edit }) {
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>{edit ? "Edit" : "Add"} Product</DialogTitle>
       <DialogContent>
-          <TextField
-            name="productId"
-            label="Product Id"
-            value={productId}
-            onChange={(e) => setProductId(e.target.value)}
-            fullWidth
-            margin="normal"
-            disabled
-            required
-          />
+        <TextField
+          name="productId"
+          label="Product Id"
+          value={productId}
+          onChange={(e) => setProductId(e.target.value)}
+          fullWidth
+          margin="normal"
+          disabled
+          required
+        />
         <TextField
           name="productName"
           label="Product Name"
@@ -94,6 +96,7 @@ function Modal({ open, handleClose, product, edit }) {
           onChange={(e) => setScrumMasterName(e.target.value)}
           fullWidth
           margin="normal"
+          required
         />
         <TextField
           name="productOwnerName"
@@ -102,6 +105,7 @@ function Modal({ open, handleClose, product, edit }) {
           onChange={(e) => setProductOwnerName(e.target.value)}
           fullWidth
           margin="normal"
+          required
         />
         <TextField
           name="developers"
@@ -110,6 +114,7 @@ function Modal({ open, handleClose, product, edit }) {
           onChange={(e) => setDevelopers(e.target.value)}
           fullWidth
           margin="normal"
+          required
         />
         <TextField
           name="startDate"
@@ -118,6 +123,7 @@ function Modal({ open, handleClose, product, edit }) {
           onChange={(e) => setStartDate(e.target.value)}
           fullWidth
           margin="normal"
+          required
         />
         <TextField
           name="methodology"
@@ -126,6 +132,7 @@ function Modal({ open, handleClose, product, edit }) {
           onChange={(e) => setMethodology(e.target.value)}
           fullWidth
           margin="normal"
+          required
         />
         <TextField
           name="location"
@@ -134,6 +141,7 @@ function Modal({ open, handleClose, product, edit }) {
           onChange={(e) => setLocation(e.target.value)}
           fullWidth
           margin="normal"
+          required
         />
       </DialogContent>
       <DialogActions>
@@ -142,6 +150,17 @@ function Modal({ open, handleClose, product, edit }) {
           Save
         </Button>
       </DialogActions>
+      {showError && (
+        <Dialog open={showError}>
+          <DialogTitle>Message</DialogTitle>
+          <DialogContent>
+            Please enter all required fields.
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setShowError(false)}>OK</Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </Dialog>
   );
 }
