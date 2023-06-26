@@ -7,20 +7,20 @@ function Modal({ open, handleClose, product, edit }) {
   const [productName, setProductName] = useState(product.productName);
   const [scrumMasterName, setScrumMasterName] = useState(product.scrumMasterName);
   const [productOwnerName, setProductOwnerName] = useState(product.productOwnerName);
-  const [developers, setDevelopers] = useState(product.developers);
+  const [developers, setDevelopers] = useState(product.developers ? product.developers.join(', ') : '');
   const [startDate, setStartDate] = useState(product.startDate);
   const [methodology, setMethodology] = useState(product.methodology);
   const [location, setLocation] = useState(product.location);
   const [showError, setShowError] = useState(false);
 
-  const updatedProduct = { productId, productName, scrumMasterName, productOwnerName, developers, startDate, methodology, location };
+  const updatedProduct = { productId, productName, scrumMasterName, productOwnerName, developers: developers.split(',').map((developer) => developer.trim()), startDate, methodology, location };
 
   useEffect(() => {
     setProductId(product.productId);
     setProductName(product.productName);
     setScrumMasterName(product.scrumMasterName);
     setProductOwnerName(product.productOwnerName);
-    setDevelopers(product.developers);
+    setDevelopers(product.developers ? product.developers.join(', ') : '');
     setStartDate(product.startDate);
     setMethodology(product.methodology);
     setLocation(product.location);
