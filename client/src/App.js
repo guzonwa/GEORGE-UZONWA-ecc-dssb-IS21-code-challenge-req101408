@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import Modal from './Modal';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -20,6 +21,20 @@ function App() {
       })
       .catch((error) => {
         console.error('Error fetching products:', error);
+      });
+  };
+
+  const deleteProduct = (productId) => {
+    fetch(`/api/products/${productId}`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Product deleted:', data);
+        fetchProducts();
+      })
+      .catch((error) => {
+        console.error('Error deleting product:', error);
       });
   };
 
@@ -43,7 +58,7 @@ function App() {
     setIsEdit(false);
     openDialog({});
   };
-  
+
   const editProduct = (productId) => {
     const selected = products.find((product) => product.productId === productId);
     if (selected) {
@@ -51,13 +66,13 @@ function App() {
       openDialog(selected);
     }
   };
-  
+
   const closeDialog = () => {
     fetchProducts();
     setSelectedProduct({});
-    setDialogOpen(false); 
+    setDialogOpen(false);
   };
-  
+
 
   return (
     <div className="container">
@@ -76,7 +91,8 @@ function App() {
             <th>Start Date</th>
             <th>Methodology</th>
             <th>Location</th>
-            <th>Edit</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -97,6 +113,11 @@ function App() {
               <td>
                 <button className="edit-button" onClick={() => editProduct(product.productId)}>
                   Edit
+                </button>
+              </td>
+              <td>
+                <button className="delete-button" onClick={() => deleteProduct(product.productId)}>
+                  <DeleteIcon />
                 </button>
               </td>
             </tr>

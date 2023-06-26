@@ -54,12 +54,12 @@
 .table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .table td {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 th, td {
@@ -119,6 +119,36 @@ a:hover {
   background-color: #1e87db;
 }
 
+.delete-button {
+  background-color: #e57373;
+  max-height: 35px;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: #ef9a9a;
+}
+
+th:last-child,
+td:last-child {
+  padding-right: 0; /* Remove right padding on the last two columns */
+}
+
+td:last-child button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+td:nth-last-child(2) button.edit-button {
+  margin-left: 50px;
+}
+
 .add-product-button {
   background-color: #4caf50;
   color: white;
@@ -131,7 +161,7 @@ a:hover {
   margin-bottom: 10px;
   position: absolute;
   top: 35px;
-  right: 20px;
+  right: 95px;
 }
 
 .add-product-button i {

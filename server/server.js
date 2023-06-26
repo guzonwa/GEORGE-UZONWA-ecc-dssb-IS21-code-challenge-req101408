@@ -97,6 +97,37 @@ app.put('/api/products/:productId', (req, res) => {
   });
 });
 
+// Delete a product
+app.delete('/api/products/:productId', (req, res) => {
+  const productId = req.params.productId;
+  console.log(`Deleting product with ID: ${productId}`);
+  
+  fs.readFile('products.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+    
+    let products = JSON.parse(data);
+    const updatedProducts = products.filter((product) => product.productId !== productId);
+    
+    if (products.length === updatedProducts.length) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+    
+    // overwrite the products json file
+    fs.writeFile('products.json', JSON.stringify(updatedProducts), 'utf8', (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+      
+      res.status(200).json({ message: 'Product has been deleted' });
+    });
+  });
+});
+
+
 
 // Start server
 app.listen(8000, () => {
