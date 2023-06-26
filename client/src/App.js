@@ -34,20 +34,14 @@ function App() {
   //     });
   // };
 
-  // const editProduct = (productId) => {
-  //   // Handle edit logic for the selected product
-  //   console.log(`Edit product with ID: ${productId}`);
-  // };
+  const openDialog = (product) => {
+    setSelectedProduct(product);
+    setDialogOpen(true);
+  };
 
   const addProduct = () => {
     setIsEdit(false);
     openDialog({});
-  };
-
-  const openDialog = (product) => {
-    console.log('opening dialog');
-    setSelectedProduct(product);
-    setDialogOpen(true);
   };
   
   const editProduct = (productId) => {
@@ -59,8 +53,9 @@ function App() {
   };
   
   const closeDialog = () => {
+    fetchProducts();
     setSelectedProduct({});
-    setDialogOpen(false);
+    setDialogOpen(false); 
   };
   
 
@@ -91,7 +86,7 @@ function App() {
               <td>{product.productName}</td>
               <td>{product.scrumMasterName}</td>
               <td>{product.productOwnerName}</td>
-              <td>{product.developers.join(', ')}</td>
+              <td>{product.developers ? product.developers.join(', ') : ''}</td>
               <td>{product.startDate}</td>
               <td>{product.methodology}</td>
               <td>
