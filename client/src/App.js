@@ -73,12 +73,14 @@ function App() {
     setDialogOpen(false);
   };
 
+  const totalProducts = products.length;
 
   return (
     <div className="container">
       <h1 className="title">Products List</h1>
+      <div className="total-products">Total Products: {totalProducts}</div>
       <button className="add-product-button" onClick={addProduct}>
-        <i className="fas fa-plus"></i> Add Product
+        Add Product
       </button>
       <table className="table">
         <thead>

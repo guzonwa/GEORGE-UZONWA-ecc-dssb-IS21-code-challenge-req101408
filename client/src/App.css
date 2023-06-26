@@ -160,7 +160,7 @@ td:nth-last-child(2) button.edit-button {
   float: right;
   margin-bottom: 10px;
   position: absolute;
-  top: 35px;
+  top: 70px;
   right: 95px;
 }
 
@@ -170,4 +170,9 @@ td:nth-last-child(2) button.edit-button {
 
 .add-product-button:hover {
   background-color: #45a049;
+}
+
+.total-products {
+  font-size: 16px;
+  margin-bottom: 10px;
 }
