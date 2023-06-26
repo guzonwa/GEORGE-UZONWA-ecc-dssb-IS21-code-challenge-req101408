@@ -38,17 +38,6 @@ function App() {
       });
   };
 
-  // const fetchProduct = (productId) => {
-  //   fetch('/api/products/${productId}')
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setProduct(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching product:', error);
-  //     });
-  // };
-
   const openDialog = (product) => {
     setSelectedProduct(product);
     setDialogOpen(true);
@@ -78,6 +67,7 @@ function App() {
   };
 
   const closeDialog = () => {
+    // get updated values of products
     fetchProducts();
     setSelectedProduct({});
     setDialogOpen(false);

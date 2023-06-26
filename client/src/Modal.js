@@ -28,7 +28,9 @@ function Modal({ open, handleClose, product, edit }) {
   }, [product]);
 
   const onSave = () => {
+    // check if all required fields are filled (since we didn't use forms, validation was done manually)
     if (!productId || !productName || !scrumMasterName || !productOwnerName || !developers || !startDate || !methodology || !location) {
+      // show message dialog
       setShowError(true);
       return;
     }
