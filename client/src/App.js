@@ -54,9 +54,19 @@ function App() {
     setDialogOpen(true);
   };
 
+  function getNextId(currentId) {
+    const currentNumber = parseInt(currentId.slice(1), 10);
+    const nextNumber = currentNumber + 1;
+    const paddedNumber = String(nextNumber).padStart(3, '0');
+    const nextId = `P${paddedNumber}`;
+    return nextId;
+  }
+
   const addProduct = () => {
+    const lastProductId = products[products.length - 1].productId;
+    const nextProductid = getNextId(lastProductId);
     setIsEdit(false);
-    openDialog({});
+    openDialog({productId: nextProductid});
   };
 
   const editProduct = (productId) => {

@@ -68,18 +68,16 @@ function Modal({ open, handleClose, product, edit }) {
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>{edit ? "Edit" : "Add"} Product</DialogTitle>
       <DialogContent>
-        {
-          edit ? '' :
-            <TextField
-              name="productId"
-              label="Product Id"
-              value={productId}
-              onChange={(e) => setProductId(e.target.value)}
-              fullWidth
-              margin="normal"
-              required
-            />
-        }
+          <TextField
+            name="productId"
+            label="Product Id"
+            value={productId}
+            onChange={(e) => setProductId(e.target.value)}
+            fullWidth
+            margin="normal"
+            disabled
+            required
+          />
         <TextField
           name="productName"
           label="Product Name"
