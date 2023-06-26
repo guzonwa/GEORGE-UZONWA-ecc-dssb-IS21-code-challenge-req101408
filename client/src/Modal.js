@@ -110,6 +110,7 @@ function Modal({ open, handleClose, product, edit }) {
         <TextField
           name="developers"
           label="Developers"
+          placeholder='comma separated values'
           value={developers}
           onChange={(e) => setDevelopers(e.target.value)}
           fullWidth
